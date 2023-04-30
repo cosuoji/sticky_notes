@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     deleteButton.onclick = function(){
         notesText.innerHTML = ""
+        notes.style.backgroundColor = "sybllue"
         notes.remove()
         console.log(notesContainer.childNodes.length)
     }
