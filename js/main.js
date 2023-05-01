@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let answer = monthArr[month]
 
-    //document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`
-
     var noteModal = document.getElementById("note-modal")
     var openModal = document.getElementById("add-note-modal")
     var span = document.getElementById("close");
@@ -42,11 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }  
 
     addNoteButton.onclick = function(){
+        document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`;
         if(textBox.value !== ""){
             noteModal.style.display = 'none'
             successModal.style.display = "block";
         }
-        if(notesContainer.length >= 3){
+        if(notesContainer.childNodes.length === 3){
             notesContainer.appendChild(notes)
             notesText.innerHTML = textBox.value;
         } else{
@@ -55,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
 
-        console.log(notesContainer.childNodes.length)
+        console.log(notesContainer.childNodes.length, (new Date()).toISOString())
+        
 
         setTimeout(()=>{
             successModal.style.animation = "fadeOut 2s forwards"
