@@ -40,22 +40,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }  
 
     addNoteButton.onclick = function(){
-        document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`;
         if(textBox.value !== ""){
             noteModal.style.display = 'none'
             successModal.style.display = "block";
         }
-        if(notesContainer.childNodes.length === 3){
+        if(notesContainer.childNodes.length > 3){
             notesContainer.appendChild(notes)
             notesText.innerHTML = textBox.value;
+
         } else{
             notesText.innerHTML = textBox.value;
             notesContainer.appendChild(notes)
         }
 
 
-        console.log(notesContainer.childNodes.length, (new Date()).toISOString())
-        
+        //console.log(notesContainer.childNodes.length, (new Date()).toISOString())
+        document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`;
 
         setTimeout(()=>{
             successModal.style.animation = "fadeOut 2s forwards"
