@@ -15,12 +15,19 @@ document.addEventListener("DOMContentLoaded", function() {
     let clearButton = document.getElementById("clearButton")
     let addNoteButton = document.getElementById("add-note-button")
     var successModal = document.getElementById("success-modal")
-    let brush = document.getElementById("brush-button")
-    let noteColorPicker = document.getElementById("note-color-picker")
     let notes = document.getElementById("notes")
+    let notesClass = document.getElementsByClassName("notes")
     let notesContainer = document.getElementById("notes_container")
     let notesText = document.getElementById("notes-text")
-    let deleteButton = document.getElementById("delete-note")
+    let deleteButton = document.getElementsByClassName("delete-button")
+    let brushButton = document.getElementsByClassName("brush-button")
+    let noteColorPicker = document.getElementsByClassName("note-color-picker")
+
+
+    //date time function 
+    function get_current_time (){
+        document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`;
+    }
 
 
     openModal.onclick = function(){
@@ -39,57 +46,100 @@ document.addEventListener("DOMContentLoaded", function() {
         textBox.value = ""
     }  
 
+    window.onclick = function(event) {
+        if (event.target === noteModal || event.target === successModal || event.target === noteColorPicker) {
+          noteModal.style.display = "none";
+          successModal.style.display = "none";
+        }  
+    }
+
     addNoteButton.onclick = function(){
         if(textBox.value !== ""){
             noteModal.style.display = 'none'
             successModal.style.display = "block";
         }
-        if(notesContainer.childNodes.length > 3){
-            notesContainer.appendChild(notes)
-            notesText.innerHTML = textBox.value;
 
-        } else{
+        if(!notesText || (notesText && notesText.innerHTML != '')){
+            const new_note = create_new_note( textBox.value )
+            notesContainer.appendChild( new_note )
+            adding_event_listeners()
+
+        } else {
             notesText.innerHTML = textBox.value;
             notesContainer.appendChild(notes)
+            adding_event_listeners()
+            get_current_time()
+      
         }
-
-
-        //console.log(notesContainer.childNodes.length, (new Date()).toISOString())
-        document.getElementById('date-time').innerHTML= `${answer},${day} ${year}`;
 
         setTimeout(()=>{
             successModal.style.animation = "fadeOut 2s forwards"
             textBox.value = ""
+            
         }, 2000)
        
     }
 
-    
-    deleteButton.onclick = function(){
-        notesText.innerHTML = ""
-        notes.style.backgroundColor = "sybllue"
-        notes.remove()
-        console.log(notesContainer.childNodes.length)
+ function create_new_note( note_content ) {
+            const note = document.createElement('div')
+            if(textBox.value === "") return
+
+            const now = new Date()
+            const note_creation_time = {
+              day: now.getDate(),
+              month: now.getMonth(),
+              year: now.getFullYear(),
+            }
+            
+            note.id = 'notes'
+            note.classList.add( 'notes' )
+     
+            note.innerHTML = ''
+             + '<div>'
+              + '<p id="notes-text" class="notes-text">'
+               + `${ note_content }`
+              + '</p>'
+             + '</div>' 
+             + '<div class="footer-ish">'
+              + '<div>'
+               + `<p id="date-time">${ monthArr[ note_creation_time.month ] } ${ note_creation_time.day }, ${ note_creation_time.year }</p>`
+              + '</div>'
+              + '<div class="notes-icons">'
+               + '<input class="note-color-picker" type="color" style="display: none;">'
+               + '<img class="brush-button" src="img/brush-2.svg">'
+               + '<img class="delete-button" src="img/trash.svg">'
+              + '</div>'
+             + '</div>'
+     
+            return note
+         }
+
+ function adding_event_listeners(){
+   function get_current_note(index){
+     for(let i = 0; i < notesClass.length; i++){
+        return notesClass[index]
+     }
+   }
+    for(let i = 0; i < noteColorPicker.length; i++){
+        noteColorPicker[i].addEventListener("input", ()=>{
+         get_current_note(i).style.backgroundColor = noteColorPicker[i].value;
+        })
     }
 
-    
-
-    brush.onclick = function(){
-       noteColorPicker.style.display = "initial";
+    for(let i = 0; i < brushButton.length; i++){
+      brushButton[i].addEventListener('click',()=>{
+        noteColorPicker[i].style.display = "initial";
+      })
     }
 
-    noteColorPicker.oninput = function(){
-      notes.style.backgroundColor = noteColorPicker.value;
+    for(let i = 0; i < deleteButton.length; i++){
+        deleteButton[i].addEventListener('click', (e)=>{
+            e.target.parentNode.parentNode.parentNode.remove()
+        })
     }
 
-    window.onclick = function(event) {
-        if (event.target === noteModal || event.target === successModal || event.target === noteColorPicker) {
-          noteModal.style.display = "none";
-          successModal.style.display = "none";
-          noteColorPicker.style.display = "none"
-         
-        }  
-    }
+    console.log(brushButton, noteColorPicker, notesClass[0])
+ }
   });
 
 

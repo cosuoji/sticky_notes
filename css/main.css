@@ -424,11 +424,10 @@ textarea{
 }
 
 
-#note-color-picker{
+.note-color-picker{
    margin-right: -50px;
    margin-top: -30px;
    position: relative;
-   display: none;
    
 }
 
