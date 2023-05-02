@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 textBox.placeholder = "NOTE CANT BE EMPTY"
                 return 
             } 
-
             const now = new Date()
             const note_creation_time = {
               day: now.getDate(),
@@ -133,7 +132,16 @@ document.addEventListener("DOMContentLoaded", function() {
     for(let i = 0; i < brushButton.length; i++){
       brushButton[i].addEventListener('click',()=>{
         noteColorPicker[i].style.display = "initial";
+
+        window.onclick = function(event){
+        if(event.target === noteColorPicker[i]){
+            noteColorPicker[i].style.display = "none";
+        }
+
+          }
+     
       })
+
     }
 
     for(let i = 0; i < deleteButton.length; i++){
@@ -141,8 +149,6 @@ document.addEventListener("DOMContentLoaded", function() {
             e.target.parentNode.parentNode.parentNode.remove()
         })
     }
-
-    console.log(brushButton, noteColorPicker, notesClass[0])
  }
   });
 
