@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function() {
               + '</div>'
               + '<div class="notes-icons">'
                + '<input class="note-color-picker" type="color" style="display: none;">'
-               + '<img class="brush-button" src="img/brush-2.svg">'
-               + '<img class="delete-button" src="img/trash.svg">'
+               + '<img class="brush-button" src="/brush-2.svg">'
+               + '<img class="delete-button" src="/trash.svg">'
               + '</div>'
              + '</div>'
      
