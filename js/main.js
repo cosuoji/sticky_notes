@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(()=>{
             successModal.style.animation = "fadeOut 2s forwards"
             textBox.value = ""
+            textBox.placeholder = "Type A New Note"
             
         }, 2000)
        
