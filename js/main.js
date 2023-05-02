@@ -82,7 +82,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
  function create_new_note( note_content ) {
             const note = document.createElement('div')
-            if(textBox.value === "") return
+            if(textBox.value === ""){
+                textBox.placeholder = "NOTE CANT BE EMPTY"
+                return 
+            } 
 
             const now = new Date()
             const note_creation_time = {
